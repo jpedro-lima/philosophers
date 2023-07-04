@@ -6,7 +6,7 @@
 /*   By: joapedr2 < joapedr2@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 18:14:53 by joapedr2          #+#    #+#             */
-/*   Updated: 2023/06/30 23:25:03 by joapedr2         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:12:54 by joapedr2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	free_data(t_data *data)
 {
-	pthread_mutex_destroy(&(data->monitor));
 	pthread_mutex_destroy(&(data->print_log));
+	pthread_mutex_destroy(&(data->end_dinner));
+	pthread_mutex_destroy(&(data->meal));
 }
 
 int	init_data(t_data *data, char **argv)
@@ -27,11 +28,14 @@ int	init_data(t_data *data, char **argv)
 	data->meal_limit = -1;
 	if (argv[5])
 		data->meal_limit = ft_atol(argv[5]);
+	data->time_think = 1 + data->time_eat - data->time_sleep;
 	data->end_of_dinner = FALSE;
 	data->start_time = 0;
-	if (pthread_mutex_init(&(data->monitor), NULL) != 0)
-		return (put_error_message(ERR_MUTEX_INIT));
 	if (pthread_mutex_init(&(data->print_log), NULL) != 0)
+		return (put_error_message(ERR_MUTEX_INIT));
+	if (pthread_mutex_init(&(data->end_dinner), NULL) != 0)
+		return (put_error_message(ERR_MUTEX_INIT));
+	if (pthread_mutex_init(&(data->meal), NULL) != 0)
 		return (put_error_message(ERR_MUTEX_INIT));
 	return (TRUE);
 }
