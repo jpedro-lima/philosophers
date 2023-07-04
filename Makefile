@@ -6,12 +6,17 @@ INCLUDES	= -I./includes
 
 # source codes
 SRCS_DIR	=	./srcs/
-SRCS_LIST	=	philosophers.c	\
-				data.c			\
-				utils.c			\
-				checkers.c		\
-				ft_libft.c		\
-				linked_list.c
+SRCS_LIST	=	philosophers.c		\
+				data.c				\
+				utils.c				\
+				checkers.c			\
+				ft_libft.c			\
+				linked_list.c		\
+				actions.c			\
+				philosophers_life.c	\
+				dinner_monitor.c	\
+				simulator.c			\
+				time.c
 SRCS		=	$(addprefix $(SRCS_DIR),$(SRCS_LIST))
 
 # objects
@@ -50,6 +55,6 @@ fclean: clean
 re: fclean all
 
 val:
-	valgrind --leak-check=full --show-leak-kinds=all --suppressions=./readline.supp -q ./$(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all -q ./$(NAME) 2 800 200 200 5
 
 .PHONY: all clean fclean re val
