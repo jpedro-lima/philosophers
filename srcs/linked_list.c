@@ -6,20 +6,11 @@
 /*   By: joapedr2 < joapedr2@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 21:54:30 by joapedr2          #+#    #+#             */
-/*   Updated: 2023/06/30 23:27:49 by joapedr2         ###   ########.fr       */
+/*   Updated: 2023/07/04 20:01:24 by joapedr2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-static void	node_swap(t_philo *new, t_philo *last)
-{
-	new->next = last->next;
-	if (last->next)
-		last->next->prev = new;
-	last->next = new;
-	new->prev = last;
-}
 
 static int	new_philosopher_node(t_philo **current, t_data *data)
 {
@@ -31,19 +22,19 @@ static int	new_philosopher_node(t_philo **current, t_data *data)
 		return (put_error_message(ERR_MALLOC));
 	new->id = 1;
 	new->meal_counter = 0;
-	new->last_eat = 0;
+	new->last_meal = 0;
 	new->data = data;
 	new->next = NULL;
-	new->prev = NULL;
 	if (pthread_mutex_init(&(new->fork), NULL) != 0)
 		return (put_error_message(ERR_MUTEX_INIT));
 	if (*current)
 	{
+		new->next = *current;
 		last = *current;
 		while (last->next && last->id < last->next->id)
 			last = last->next;
-		new->id = last->id + 1;
-		node_swap(new, last);
+		new->id += last->id;
+		last->next = new;
 	}
 	else
 		*current = new;
@@ -53,19 +44,17 @@ static int	new_philosopher_node(t_philo **current, t_data *data)
 void	free_philosopher_list(t_philo **philo)
 {
 	t_philo	*aux;
+	int		size;
 
-	if (!(*philo))
-		return ;
-	(*philo)->prev->next = NULL;
-	aux = *philo;
-	while (aux)
+	size = (*philo)->data->number_philo;
+	while (size--)
 	{
 		aux = NULL;
 		if ((*philo)->next)
 			aux = (*philo)->next;
-		aux->prev = NULL;
 		pthread_mutex_destroy(&((*philo)->fork));
-		free(*philo);
+		free((*philo));
+		(*philo) = aux;
 	}
 }
 
