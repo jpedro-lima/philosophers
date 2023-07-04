@@ -6,7 +6,7 @@
 /*   By: joapedr2 < joapedr2@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 18:39:46 by joapedr2          #+#    #+#             */
-/*   Updated: 2023/06/30 18:54:36 by joapedr2         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:35:28 by joapedr2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,21 @@ int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (2048);
+	return (0);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (!s1 || !s2)
+		return (-1);
+	while (i < n)
+	{
+		if (s1[i] != s2[i] || s1[i] == '\0')
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		++i;
+	}
 	return (0);
 }
