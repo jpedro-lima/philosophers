@@ -6,7 +6,7 @@
 /*   By: joapedr2 < joapedr2@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 23:59:48 by joapedr2          #+#    #+#             */
-/*   Updated: 2023/07/04 19:22:59 by joapedr2         ###   ########.fr       */
+/*   Updated: 2023/07/04 22:12:20 by joapedr2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ long long int	get_last_meal(t_philo *philo)
 static int	meal_limit_reached(t_philo *philo)
 {
 	t_philo	*aux;
-	int i;
+	int		i;
 
 	aux = philo;
 	i = philo->data->number_philo;
