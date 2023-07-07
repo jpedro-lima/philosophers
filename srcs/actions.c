@@ -6,7 +6,7 @@
 /*   By: joapedr2 < joapedr2@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 00:47:21 by joapedr2          #+#    #+#             */
-/*   Updated: 2023/07/04 22:13:02 by joapedr2         ###   ########.fr       */
+/*   Updated: 2023/07/06 12:03:21 by joapedr2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,20 @@ void	drop_forks(t_philo *philo)
 
 void	hold_forks(t_philo *philo)
 {
-	pthread_mutex_lock(&(philo->fork));
-	print_log(philo, "has taken a fork");
-	if (!philo->next)
+	if (philo->id % 2 != 0)
 	{
-		msleep(philo->data->time_die);
-		return ;
-	}	
-	pthread_mutex_lock(&(philo->next->fork));
-	print_log(philo, "has taken a fork");
+		pthread_mutex_lock(&(philo->next->fork));
+		print_log(philo, "has taken a fork");
+		pthread_mutex_lock(&(philo->fork));
+		print_log(philo, "has taken a fork");
+	}
+	else
+	{
+		pthread_mutex_lock(&(philo->fork));
+		print_log(philo, "has taken a fork");
+		pthread_mutex_lock(&(philo->next->fork));
+		print_log(philo, "has taken a fork");
+	}
 }
 
 void	eat(t_philo *philo)

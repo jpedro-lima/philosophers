@@ -6,7 +6,7 @@
 /*   By: joapedr2 < joapedr2@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 23:59:35 by joapedr2          #+#    #+#             */
-/*   Updated: 2023/07/04 19:37:43 by joapedr2         ###   ########.fr       */
+/*   Updated: 2023/07/06 12:13:30 by joapedr2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,23 @@ int	end_of_dinner(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->end_dinner);
 	return (result);
 }
+int		one_philo(t_philo *philo)
+{
+	if (philo->next)
+		return (FALSE);
+	pthread_mutex_lock(&(philo->fork));
+	print_log(philo, "has taken a fork");
+	msleep(philo->data->time_die);
+	return (TRUE);
+}
 
 void	*philosopher_life(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->id % 2 == 0)
-		msleep(5);
+	if (one_philo(philo))
+		return (NULL);
 	while (!end_of_dinner(philo))
 	{
 		hold_forks(philo);
