@@ -6,7 +6,7 @@
 /*   By: joapedr2 < joapedr2@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 23:59:35 by joapedr2          #+#    #+#             */
-/*   Updated: 2023/07/06 12:13:30 by joapedr2         ###   ########.fr       */
+/*   Updated: 2023/07/08 01:04:07 by joapedr2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	end_of_dinner(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->end_dinner);
 	return (result);
 }
-int		one_philo(t_philo *philo)
+
+int	one_philo(t_philo *philo)
 {
 	if (philo->next)
 		return (FALSE);
