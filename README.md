@@ -26,7 +26,7 @@ $ ./philo 3 800 200 200 5 (exemplo)
 - limite de refeições (argumento opcional e no limite de um inteiro)
 
 <div>
-<video loop src="./readme_files/simulation.mp4">video </video>
+<img src="/readme_files/simulation.gif">
 </div>
 
 O projeto é atualizado regularmente com correções de bugs e otimização de código.
