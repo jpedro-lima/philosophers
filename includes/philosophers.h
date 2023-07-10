@@ -18,7 +18,6 @@
 # include <unistd.h>	// usleep()
 # include <sys/time.h>	// gettimeofday()
 # include <pthread.h>	// thread functions()
-# include <sys/time.h>	// gettimeofday()
 # include "error_messages.h"
 
 # define FT_INT_MAX		2147483647
